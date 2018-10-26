@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- mantenimiento estandar -->
+    <record id="view_mantenimiento_estandar_tree" model="ir.ui.view">
+        <field name="name">mantenimiento.estandar.tree</field>
+        <field name="model">mantenimiento.estandar</field>
+        <field name="arch" type="xml">
+            <tree string="Mantenimiento preventivo">
+                <field name="name"/>
+                <field name="fecha"/>
+                <field name="semana_mes"/>
+                <field name="equipo_id"/>
+                <field name="equipo_cliente_id"/>
+                <field name="tecnico_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mantenimiento_estandar_form" model="ir.ui.view">
+        <field name="name">mantenimiento.estandar.form</field>
+        <field name="model">mantenimiento.estandar</field>
+        <field name="arch" type="xml">
+            <form string="Mantenimiento">
+            <sheet string="Mantenimiento">
+                <h3 class="mt0">
+                    <label string="Código"/>
+                    <field name="name" readonly="1" class="oe_inline"/>
+                </h3>
+                <group>
+                    <group>
+                        <field name="semana_mes"/>
+                        <field name="equipo_id"/>
+                        <field name="equipo_tipo_id"/>
+                        <field name="equipo_cliente_id"/>
+                        <field name="equipo_localizacion"/>
+                    </group>
+                    <group>
+                        <field name="fecha"/>
+                        <field name="tecnico_id"
+                            domain="[('tecnico','=',True)]"
+                            context="{'default_tecnico': 1, 'search_default_tecnico': 1, 'default_customer': 0, 'search_default_customer': 0}"
+                            options='{"always_reload": True}'/>
+                    </group>
+                </group>
+                <notebook colspan="4">
+                    <page string="Tareas del mantenimiento preventivo">
+                        <field name="mantenimiento_linea_ids" nolabel="1" widget="one2many_list" mode="tree">
+                            <tree string="Tareas del mantenimiento preventivo" editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="tarea_id" domain="[('tipo_id','=',parent.equipo_tipo_id)]"/>
+                                <field name="visto_bueno"/>
+                                <field name="visto_a"/>
+                                <field name="visto_b"/>
+                                <field name="detalle"/>
+                                <field name="valor" invisible="1"/>
+                            </tree>
+                        </field>
+                        <field name="observacion" placeholder="Observaciones..."/>
+                    </page>
+                </notebook>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mantenimiento_estandar_filter" model="ir.ui.view">
+        <field name="name">mantenimiento.estandar.select</field>
+        <field name="model">mantenimiento.estandar</field>
+        <field name="arch" type="xml">
+            <search string="Buscar mantenimiento">
+                <field name="name" filter_domain="[('name', 'child_of', self)]"/>
+                <field name="fecha" />
+                <field name="semana_mes"/>
+                <separator/>
+                <field name="equipo_cliente_id" operator="child_of"/>
+                <field name="equipo_localizacion"/>
+                <field name="tecnico_id" operator="child_of"/>
+                <separator/>
+                <group expand="0" string="Agrupar por">
+                    <filter name="group_by_tecnico_id" string="Tecnico" context="{'group_by':'tecnico_id'}"/>
+                    <filter name="group_by_equipo_cliente_id" string="Cliente" context="{'group_by':'equipo_cliente_id'}"/>
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <record id="action_mantenimiento_estandar_tree" model="ir.actions.act_window">
+        <field name="name">Mantenimientos Estandar</field>
+        <field name="res_model">mantenimiento.estandar</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_mantenimiento_estandar_filter"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Clic para crear un nuevo mantenimiento.
+          </p>
+        </field>
+    </record>
+
+    <!-- actions -->
+
+    <menuitem name="Mantenimientos Estandar" id="action_mantenimiento_estandar_menu" 
+              parent="menu_mantenimiento_estandar"
+              action="action_mantenimiento_estandar_tree"/>
+
+    <record id="view_mantenimiento_tarea_tree" model="ir.ui.view">
+        <field name="name">mantenimiento.tarea.tree</field>
+        <field name="model">mantenimiento.tarea</field>
+        <field name="arch" type="xml">
+            <tree string="Tareas de mantenimiento">
+                <field name="name"/>
+                <field name="tipo_id"/>
+                <field name="semana_mes"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mantenimiento_tarea_form" model="ir.ui.view">
+        <field name="name">mantenimiento.tarea.form</field>
+        <field name="model">mantenimiento.tarea</field>
+        <field name="arch" type="xml">
+            <form string="Tareas de mantenimiento">
+            <sheet string="Tareas de mantenimiento">
+                <group>
+                    <field name="name"/>
+                    <field name="tipo_id"/>
+                    <field name="semana_mes"/>
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mantenimiento_tarea_filter" model="ir.ui.view">
+        <field name="name">mantenimiento.tarea.select</field>
+        <field name="model">mantenimiento.tarea</field>
+        <field name="arch" type="xml">
+            <search string="Buscar tarea">
+                <field name="name" filter_domain="[('name', 'child_of', self)]"/>
+                <field name="tipo_id" filter_domain="[('tipo_id', 'child_of', self)]"/>
+           </search>
+        </field>
+    </record>
+    
+    <record id="action_mantenimiento_tarea_tree" model="ir.actions.act_window">
+        <field name="name">Tareas de mantenimiento</field>
+        <field name="res_model">mantenimiento.tarea</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_mantenimiento_tarea_filter"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Clic para crear un nueva tarea de mantenimiento.
+          </p>
+        </field>
+    </record>
+
+    <!-- actions -->
+
+    <menuitem name="Tareas de mantenimiento" id="action_mantenimiento_tarea_menu" 
+              parent="menu_tarea_asi"
+              action="action_mantenimiento_tarea_tree"/>
+
+  </data>
+</odoo>

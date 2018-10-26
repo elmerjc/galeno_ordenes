@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- equipo estandar -->
+    <record id="view_equipo_estandar_tree" model="ir.ui.view">
+        <field name="name">equipo.estandar.tree</field>
+        <field name="model">equipo.estandar</field>
+        <field name="arch" type="xml">
+            <tree string="Equipo">
+                <field name="codigo"/>
+                <field name="tipo_id"/>
+                <field name="marca_id"/>
+                <field name="modelo"/>
+                <field name="cliente_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_equipo_estandar_form" model="ir.ui.view">
+        <field name="name">equipo.estandar.form</field>
+        <field name="model">equipo.estandar</field>
+        <field name="arch" type="xml">
+            <form string="Equipo">
+            <sheet string="Equipo">
+                <h3 class="mt0">
+                    <label string="Código"/>
+                    <field name="codigo" readonly="1" class="oe_inline"/>
+                </h3>
+                <h3>
+                    <label string="Equipo"/>
+                    <field name="tipo_id"/>
+                </h3>         
+                <group>
+                    <group>
+                        <field name="marca_id"/>
+                        <field name="modelo"/>
+                        <field name="activo"/>
+                    </group>
+                    <group>
+                        <field string="Cliente" name="cliente_id"
+                            context="{'search_default_customer':1, 'show_address': 1}"
+                            options='{"always_reload": True}'
+                            domain="[('customer', '=', True)]"/>
+                        <field name="localizacion"/>
+                    </group>
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_equipo_estandar_filter" model="ir.ui.view">
+        <field name="name">equipo.estandar.select</field>
+        <field name="model">equipo.estandar</field>
+        <field name="arch" type="xml">
+            <search string="Buscar equipo">
+                <field name="name" string="Equipo" filter_domain="[('name', 'child_of', self)]"/>
+                <field name="codigo" />
+                <field name="modelo" />
+                <separator/>
+                <field name="marca_id" operator="child_of"/>
+                <separator/>
+                <group expand="0" string="Agrupar por">
+                    <filter name="group_by_marca_id" string="Marca" context="{'group_by':'marca_id'}"/>
+                    <filter name="group_by_tipo_id" string="Tipo" context="{'group_by':'tipo_id'}"/>
+                    <separator/>
+                    <filter name="group_by_cliente_id" string="Cliente" context="{'group_by':'cliente_id'}"/>
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <record id="action_equipo_estandar_tree" model="ir.actions.act_window">
+        <field name="name">Equipos</field>
+        <field name="res_model">equipo.estandar</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_equipo_estandar_filter"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click para crear un nuevo equipo.
+          </p>
+        </field>
+    </record>
+
+    <!-- actions -->
+
+    <menuitem name="Equipos" id="action_equipos_estandar_menu" 
+              parent="menu_equipo_estandar"
+              action="action_equipo_estandar_tree"/>
+
+
+  </data>
+</odoo>

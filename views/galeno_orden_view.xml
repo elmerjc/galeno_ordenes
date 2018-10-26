@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- Orden de atención -->
+    <record id="view_galeno_orden_tree" model="ir.ui.view">
+        <field name="name">galeno.orden.tree</field>
+        <field name="model">galeno.orden</field>
+        <field name="arch" type="xml">
+            <tree string="Orden de atención">
+                <field name="name"/>
+                <field name="fecha"/>
+                <field name="cliente_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_galeno_orden_form" model="ir.ui.view">
+        <field name="name">galeno.orden.form</field>
+        <field name="model">galeno.orden</field>
+        <field name="arch" type="xml">
+            <form string="Orden de atención">
+            <header>
+                <field name="state" widget="statusbar" nolabel="1"/>
+            </header>
+            <sheet string="Orden de atención">
+                <h3 class="mt0">
+                    <label string="Código"/>
+                    <field name="name" readonly="1" class="oe_inline"/>
+                </h3>
+                <group>
+                    <group>
+                        <field name="cliente_id"/>
+                        <field name="cliente_email"/>
+                        <field name="cliente_phone"/>
+                    </group>
+                    <group>
+                        <field name="cliente_edad"/>
+                        <field name="cliente_datebd"/>
+                        <field name="cliente_sexo"/>
+                        <field name="cliente_dni"/>
+                    </group>
+                </group>
+                <notebook colspan="4">
+                    <page string="Radiografías Intraorales">
+                        <group>
+                            <group>
+                                <field name="r_periapical"/>
+                                <field name="dientes_msd1_ids" domain="[('maxilar', '=', 'Superior'),('lado', '=', 'Derecho'),('grupo', '=', '1')]" widget="many2many_checkboxes"/>
+                                <field name="dientes_msd2_ids" domain="[('maxilar', '=', 'Superior'),('lado', '=', 'Derecho'),('grupo', '=', '2')]" widget="many2many_checkboxes"/>
+                                <field name="dientes_mid1_ids" domain="[('maxilar', '=', 'Inferior'),('lado', '=', 'Derecho'),('grupo', '=', '1')]" widget="many2many_checkboxes"/>
+                                <field name="dientes_mid2_ids" domain="[('maxilar', '=', 'Inferior'),('lado', '=', 'Derecho'),('grupo', '=', '2')]" widget="many2many_checkboxes"/>
+                            </group>
+                            <group>
+                                <field name="dientes_msi1_ids" domain="[('maxilar', '=', 'Superior'),('lado', '=', 'Izquierdo'),('grupo', '=', '1')]" widget="many2many_checkboxes"/>
+                                <field name="dientes_msi2_ids" domain="[('maxilar', '=', 'Superior'),('lado', '=', 'Izquierdo'),('grupo', '=', '2')]" widget="many2many_checkboxes"/>
+                                <field name="dientes_mii1_ids" domain="[('maxilar', '=', 'Inferior'),('lado', '=', 'Izquierdo'),('grupo', '=', '1')]" widget="many2many_checkboxes"/>
+                                <field name="dientes_mii2_ids" domain="[('maxilar', '=', 'Inferior'),('lado', '=', 'Izquierdo'),('grupo', '=', '2')]" widget="many2many_checkboxes"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="r_bitewing"/>
+                                <group>
+                                    <field name="r_bw_molar_d"/>
+                                    <field name="r_bw_premolar_d"/>
+                                </group>
+                                <group>
+                                    <field name="r_bw_molar_i"/>
+                                    <field name="r_bw_premolar_i"/>
+                                </group>
+                                <field name="r_bw_serie"/>
+                                <field name="r_bw_estudio"/>
+                            </group>
+                            <group>
+                                <field name="r_oclusal"/>
+                                <group>
+                                    <field name="r_os_sup"/>
+                                </group>
+                                <group>
+                                    <field name="r_os_inf"/>
+                                    <field name="r_os_donovan"/>
+                                </group>
+                                <field name="r_os_grid"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Radiografías Extraorales">
+                        <group>
+                            <group>
+                                <field name="r_panoramica"/>
+                                <field name="r_lateral"/>
+                                <field name="r_atm"/>
+                                <field name="r_frontal"/>
+                                <field name="r_waters"/>
+                            </group>
+                            <group>
+                                <field name="r_lateral_estricta"/>
+                                <field name="r_carpal"/>
+                                <field name="r_towne"/>
+                                <field name="r_px_lx"/>
+                            </group>
+                            <field name="r_extraoral_esp"/>
+                        </group>
+                    </page>
+                    <page string="Documentación Ortodóntica">
+                        <group>
+                            <group>
+                                <field name="d_orto1"/>
+                                <field name="d_orto2"/>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="d_ricketts"/>
+                                    <field name="d_steiner"/>
+                                    <field name="d_upch"/>
+                                    <field name="d_tejidos_blandos"/>
+                                </group>
+                                <group>
+                                    <field name="d_ricketts_resumido"/>
+                                    <field name="d_jarabak"/>
+                                    <field name="d_bjork"/>
+                                    <field name="d_vto_crecimiento"/>
+                                </group>
+                                <group>
+                                    <field name="d_schwartz"/>
+                                    <field name="d_downs"/>
+                                    <field name="d_burstone"/>
+                                </group>
+                                <group>
+                                    <field name="d_namara"/>
+                                    <field name="d_rocabado"/>
+                                </group>
+                                <group>
+                                    <field name="d_tweed"/>
+                                    <field name="d_roth"/>
+                                </group>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Fotografía Clínica">
+                        <group>
+                            <group>
+                                <field name="f_intraorales"/>
+                            </group>
+                            <group>
+                                <field name="f_extraorales"/>
+                            </group>
+                            <group>
+                                <field name="f_otros"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Tomografía CONE BEAM - 3D">
+                        <group>
+                            <group>
+                                <field name="t_software"/>
+                                <field name="t_sinanalisis"/>
+                                <field name="t_conanalisis"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="t_implantes"/>
+                                <group>
+                                    <field name="t_implantes_maxilar"/>
+                                </group>
+                                <group>
+                                    <field name="t_endodoncia"/>
+                                    <field name="t_fractura"/>
+                                </group>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                
+                                <field name="t_implantes_guia"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="t_localizacion"/>
+                                <field name="t_localizacion_esp"/>
+                                <field name="t_area"/>
+                                <field name="t_area_esp"/>
+                                <field name="t_senos"/>
+                                <field name="t_senos_esp"/>
+                                <field name="t_atm"/>
+                                <field name="t_atm_esp"/>
+                                <field name="t_otros"/>
+                                <field name="t_otros_esp"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="indicaciones"/>
+                        </group>
+                    </page>
+                </notebook>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_galeno_orden_filter" model="ir.ui.view">
+        <field name="name">galeno.orden.select</field>
+        <field name="model">galeno.orden</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Orden">
+                <field name="name" filter_domain="[('name', 'child_of', self)]"/>
+                <separator/>
+                <field name="cliente_id" operator="child_of"/>
+                <field name="fecha"/>
+                <separator/>
+                <group expand="0" string="Agrupar por">
+                    <filter name="group_by_cliente_id" string="Cliente" context="{'group_by':'cliente_id'}"/>
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <record id="action_orden_atencion_tree" model="ir.actions.act_window">
+        <field name="name">Orden de Atención</field>
+        <field name="res_model">galeno.orden</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_galeno_orden_filter"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Clic para crear una nueva orden de atención.
+          </p>
+        </field>
+    </record>
+
+    <!-- actions -->
+
+    <menuitem name="Orden de Atención" id="action_galeno_orden_menu" 
+              parent="menu_orden_atencion"
+              action="action_orden_atencion_tree"/>
+
+  </data>
+</odoo>

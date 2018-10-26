@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+    <record id="view_res_partner_tecnico_tree" model="ir.ui.view">
+        <field name="name">res.partner.tecnico</field>
+        <field name="model">res.partner</field>
+        <field name="priority" eval="20"/>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//page[@name='sales_purchases']//field[@name='customer']" position="before">
+                    <field name="tecnico"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="view_res_partner_asi_filter" model="ir.ui.view">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Buscar">
+                   <field name="name"
+                       filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                   <separator/>
+                   <filter string="Clientes" name="customer" domain="[('customer','=',1), ('parent_id', '=', False)]"/>
+                   <filter string="Tecnicos" name="tecnico" domain="[('tecnico','=',1), ('parent_id', '=', False)]"/>
+                   <separator/>
+                   <field name="parent_id" domain="[('is_company','=',1)]" operator="child_of"/>
+               </search>
+            </field>
+        </record>
+
+    <record id="action_cliente_asi_tree" model="ir.actions.act_window">
+        <field name="name">Clientes</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'default_customer':1, 'search_default_customer':1}</field>
+        <field name="search_view_id" ref="view_res_partner_asi_filter"/>
+        <field name="filter" eval="True"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Clic para crear un nuevo cliente.
+          </p>
+        </field>
+    </record>
+
+    <!-- actions -->
+    <menuitem name="Clientes" id="action_cliente_asi_menu" 
+              parent="menu_cliente_asi"
+              action="action_cliente_asi_tree"/>
+
+    <record id="action_tecnico_asi_tree" model="ir.actions.act_window">
+        <field name="name">Tecnicos</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'default_tecnico':1, 'search_default_tecnico':1, 'default_customer':0, 'search_default_customer':0}</field>
+        <field name="search_view_id" ref="view_res_partner_asi_filter"/>
+        <field name="filter" eval="True"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Clic para crear un nuevo tecnico.
+          </p>
+        </field>
+    </record>
+
+    <!-- actions -->
+    <menuitem name="Tecnicos" id="action_tecnico_asi_menu" 
+              parent="menu_tecnico_asi"
+              action="action_tecnico_asi_tree"/>
+
+    </data>
+</odoo>

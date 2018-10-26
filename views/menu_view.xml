@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- Top menu item -->
+    
+    <menuitem name="Galeno" id="menu_galeno" sequence="10"/>
+    
+    <!-- menu categories -->
+    
+    <menuitem name="Orden de atención" id="menu_orden_atencion" parent="menu_galeno"/>
+
+  </data>
+</odoo>

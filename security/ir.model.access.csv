@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_equipo_estandar_user,equipo_estandar user,model_equipo_estandar,asi_ltda_user,1,1,0,0
+access_equipo_estandar_manager,equipo_estandar manager,model_equipo_estandar,asi_ltda_manager,1,1,1,1
+access_equipo_tipo_user,equipo_tipo user,model_equipo_tipo,asi_ltda_user,1,1,0,0
+access_equipo_tipo_manager,equipo_tipo manager,model_equipo_tipo,asi_ltda_manager,1,1,1,1
+access_equipo_marca_user,equipo_marca user,model_equipo_marca,asi_ltda_user,1,1,0,0
+access_equipo_marca_manager,equipo_marca manager,model_equipo_marca,asi_ltda_manager,1,1,1,1
+access_mantenimiento_estandar_user,mantenimiento_estandar user,model_mantenimiento_estandar,asi_ltda_user,1,1,0,0
+access_mantenimiento_estandar_manager,mantenimiento_estandar manager,model_mantenimiento_estandar,asi_ltda_manager,1,1,1,1
+access_mantenimiento_linea_user,mantenimiento_linea user,model_mantenimiento_linea,asi_ltda_user,1,1,0,0
+access_mantenimiento_linea_manager,mantenimiento_linea manager,model_mantenimiento_linea,asi_ltda_manager,1,1,1,1
+access_mantenimiento_tarea_user,mantenimiento_tarea user,model_mantenimiento_tarea,asi_ltda_user,1,1,0,0
+access_mantenimiento_tarea_manager,mantenimiento_tarea manager,model_mantenimiento_tarea,asi_ltda_manager,1,1,1,1
+access_mantenimiento_bandeja_user,mantenimiento_bandeja user,model_mantenimiento_bandeja,asi_ltda_user,1,1,0,0
+access_mantenimiento_bandeja_manager,mantenimiento_bandeja manager,model_mantenimiento_bandeja,asi_ltda_manager,1,1,1,1
+access_mantenimiento_bandeja_linea_user,mantenimiento_bandeja_linea user,model_mantenimiento_bandeja_linea,asi_ltda_user,1,1,0,0
+access_mantenimiento_bandeja_linea_manager,mantenimiento_bandeja_linea manager,model_mantenimiento_bandeja_linea,asi_ltda_manager,1,1,1,1
